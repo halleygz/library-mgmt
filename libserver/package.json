@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf dist && tsc",
+    "prestart": "npm run build",
+    "start": "node ./dist/server.js",
+    "predev": "npm run build",
+    "dev": "concurrently \"tsc -w\"nodemon ./dist/server.js\""
   },
   "author": "Halleluya Mulugeta",
   "license": "ISC",
@@ -21,5 +25,8 @@
     "joi": "^17.13.3",
     "mongoose": "^8.5.4",
     "rimraf": "^6.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

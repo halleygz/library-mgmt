@@ -7,7 +7,7 @@
     "prestart": "npm run build",
     "start": "node ./dist/server.js",
     "predev": "npm run build",
-    "dev": "concurrently \"tsc -w\"nodemon ./dist/server.js\""
+    "dev": "concurrently \"tsc -w\" \"nodemon ./dist/server.js\""
   },
   "author": "Halleluya Mulugeta",
   "license": "ISC",

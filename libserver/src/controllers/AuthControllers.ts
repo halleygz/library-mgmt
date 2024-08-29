@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { login, register } from "../services/UserServices";
 import { IUser } from "../models/User";
+import { InvalidUsernameOrPwd } from "../utils/libraryErrors";
 
 async function handleRegister(req:Request, res:Response){
     const user:IUser = req.body
@@ -44,7 +45,11 @@ async function handleLogin(req:Request, res:Response) {
         })
 
     } catch (error:any) {
-        throw new Error("unable to login")
+        if(error instanceof InvalidUsernameOrPwd){
+            res.status(401).json({message: "Incorrect cridentials", error: error.message})
+        } else {
+            res.status(500).json({message: "Unable to login at this time", error:error.message})
+        }
     }
 }
 

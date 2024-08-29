@@ -4,6 +4,7 @@ import { config } from '../config'
 
 import UserDao, {IuserModel} from '../daos/UserDao'
 import { IUser } from '../models/User'
+import { InvalidUsernameOrPwd } from '../utils/libraryErrors'
 
 export async function register(user:IUser):Promise<IuserModel>{
     const Rounds = config.server.rounds
@@ -26,14 +27,14 @@ export async function login(cridentials:{email:string, password:string}):Promise
         const user = await UserDao.findOne({email})
 
         if(!user){
-            throw new Error("Invalid user cridentials")
+            throw new InvalidUsernameOrPwd("Invalid user cridentials")
         } else {
             const validatePwd:boolean = await bcrypt.compare(password, user.password)
 
             if(validatePwd){
                 return user
             } else {
-                throw new Error("Invalid user cridentials")
+                throw new InvalidUsernameOrPwd("Invalid user cridentials")
             }
         }
     } catch(error:any){

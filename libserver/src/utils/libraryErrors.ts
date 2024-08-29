@@ -4,3 +4,9 @@ export class UnabelToSaveUserError extends Error {
     }
 
 }
+
+export class InvalidUsernameOrPwd extends Error {
+    constructor(message: string){
+        super(message)
+    }
+}
